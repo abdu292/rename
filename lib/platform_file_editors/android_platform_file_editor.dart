@@ -19,7 +19,7 @@ class AndroidPlatformFileEditor extends AbstractPlatformFileEditor {
   );
   final String androidAppBuildGradlePath =
       AbstractPlatformFileEditor.convertPath(
-    ['android', 'app', 'build.gradle'],
+    ['android', 'app', 'build.gradle.kts'],
   );
 
   /// Creates an instance of [AndroidPlatformFileEditor].
@@ -55,7 +55,7 @@ class AndroidPlatformFileEditor extends AbstractPlatformFileEditor {
     );
     for (var i = 0; i < contentLineByLine.length; i++) {
       if (contentLineByLine[i]?.contains('applicationId') ?? false) {
-        return (contentLineByLine[i] as String).split('"')[1].trim();
+        return (contentLineByLine[i] as String).split('=')[1].trim();
       }
     }
     return null;
@@ -98,7 +98,7 @@ class AndroidPlatformFileEditor extends AbstractPlatformFileEditor {
     );
     for (var i = 0; i < contentLineByLine.length; i++) {
       if (contentLineByLine[i].contains('applicationId')) {
-        contentLineByLine[i] = '        applicationId \"$bundleId\"';
+        contentLineByLine[i] = '        applicationId = \"$bundleId\"';
         break;
       }
     }
